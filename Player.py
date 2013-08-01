@@ -37,23 +37,24 @@ class Player(BasePlayer):
     '''
     Your strategy starts here.
     '''
-    
-    def hunt_choices(
-                    self,
-                    round_number,
-                    current_food,
-                    current_reputation,
-                    m,
-                    player_reputations,
-                    ):
+    working=0
+    def hunt_choices(self,round_number,current_food,current_reputation,
+                    m,player_reputations):
         '''Required function defined in the rules'''
-                    
-        return ['s']*len(player_reputations)
+        strategy=[]
+        for x in player_reputations:
+            if x>self.working:
+                strategy.append('h')
+            else:
+                strategy.append('s')
+        return strategy
         
 
     def hunt_outcomes(self, food_earnings):
         '''Required function defined in the rules'''
-        pass
+        #pass
+        if sum(food_earnings)<0:
+            self.working+=0.005
         
 
     def round_end(self, award, m, number_hunters):
