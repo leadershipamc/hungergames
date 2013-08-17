@@ -138,7 +138,8 @@ class Game(object):
             newlist = sorted(self.players, key=lambda x: x.food, reverse=True)
             for p in newlist:
                 print (p)
-                   
+                
+                
         
         if self.game_over():            
             print ("Game Completed after {} rounds".format(self.round))

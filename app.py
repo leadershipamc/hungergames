@@ -6,6 +6,14 @@ from Player import Player
 # Bare minimum test game. See README.md for details.
 
 if __name__ == '__main__':
-    players = [Player(), Pushover(), Freeloader(), Alternator(), MaxRepHunter(), Random(.2), Random(.8), FairHunter(), BoundedHunter(0.4,0.6), AverageHunter()]
+    players = [Player()]
+    for i in range(10):
+        BoundedHunter(0.05*i,1)
+        players.append(Alternator())
+        players.append(MaxRepHunter())
+        players.append(Freeloader())
+        players.append(Pushover())
+        players.append(FairHunter())
+        players.append(AverageHunter())
     game = Game(players)
     game.play_game()

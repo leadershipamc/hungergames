@@ -141,3 +141,49 @@ class AverageHunter(BasePlayer):
         avg_rep = sum(player_reputations) / float(len(player_reputations))
         return ['h' if random.random() < avg_rep else 's' for rep in player_reputations]
         
+
+class bot1(BasePlayer):
+    '''Player that follows h,s,s.'''
+    def __init__(self):
+        self.name = "bot1"
+        self.num = 0
+    
+    def hunt_choices(
+                    self,
+                    round_number,
+                    current_food,
+                    current_reputation,
+                    m,
+                    player_reputations,
+                    ):
+        self.num+=1
+        if self.num%3==1:
+            return ['h']*len(player_reputations)
+        else:
+            return ['s']*len(player_reputations)
+
+
+class Adapter(BasePlayer):
+    '''
+    Your strategy starts here.
+    '''
+    def __init__(self,adaptiveness,starting_limit):
+        self.name="Adapter"+str(adaptiveness)+str(starting_limit)
+        self.working=starting_limit
+        self.adaptiveness=adaptiveness
+    
+    def hunt_choices(self,round_number,current_food,current_reputation,m,player_reputations):
+        '''Required function defined in the rules'''
+        strategy=[]
+        for x in player_reputations:
+            if x>self.working:
+                strategy.append('h')
+            else:
+                strategy.append('s')
+        return strategy
+
+
+    def hunt_outcomes(self, food_earnings):
+        '''Required function defined in the rules'''
+        if sum(food_earnings)<0:
+            self.working+=self.adaptiveness
